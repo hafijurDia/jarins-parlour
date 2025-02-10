@@ -29,7 +29,7 @@ const ThemeToggle = () => {
       onClick={toggleDarkMode}
       className="text-gray-700 dark:text-gray-300 focus:outline-none"
     >
-      {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+      {isDarkMode ? <FaSun size={20} className="text-yellow-300" /> : <FaMoon size={20} />}
     </button>
   );
 };

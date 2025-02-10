@@ -75,20 +75,27 @@ const Navbar = () => {
               </div>
             )}
           </div>
-        ) : (
-          <Link
+        ) : <>
+       
+          {item.id == 8 ?<Link
+            to={item.url}
+            className="text-white bg-pink-500 py-1 px-4 rounded-sm hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+          >
+            {item.title}
+          </Link> : <Link
             to={item.url}
             className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
           >
             {item.title}
-          </Link>
-        )}
+          </Link>}
+      
+        </>}
       </div>
     ));
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-md py-4">
+    <header className="bg-white dark:bg-gray-900 shadow-md py-4 bg-pink-100">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
           {/* Logo */}
