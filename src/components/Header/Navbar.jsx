@@ -1,14 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronDown, FaChevronUp, FaBars, FaTimes } from "react-icons/fa";
-import logo from "../../assets/logo/logo.png"
+import logo from "../../assets/logo/logo.png";
 import ThemeToggle from "../../components/Header/ThemeToggle";
+import UseAuth from "../../hooks/UseAuth";
 
 const Navbar = () => {
+  const { user, logOut } = UseAuth();
   const [menuItems, setMenuItems] = useState([]); // State to store menu data
   const [openDropdownId, setOpenDropdownId] = useState(null); // Track open dropdown
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile menu state
   const dropdownRef = useRef(null);
+
+  //signout
+  const handleSignOut = () => {
+    logOut().then((res) => {
+      console.log("signout successfull");
+    });
+  };
 
   // Fetch menu data from API
   useEffect(() => {
@@ -75,21 +84,16 @@ const Navbar = () => {
               </div>
             )}
           </div>
-        ) : <>
-       
-          {item.id == 8 ?<Link
-            to={item.url}
-            className="text-white bg-pink-600 hover:bg-gray-300 py-1 px-4 rounded-sm hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-          >
-            {item.title}
-          </Link> : <Link
-            to={item.url}
-            className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-          >
-            {item.title}
-          </Link>}
-      
-        </>}
+        ) : (
+          <>
+            <Link
+              to={item.url}
+              className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+            >
+              {item.title}
+            </Link>
+          </>
+        )}
       </div>
     ));
   };
@@ -100,35 +104,57 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div>
-            <img src={logo} alt="Logo" className="h-12" />
+            <Link to="/">
+              <img src={logo} alt="Logo" className="h-12" />
+            </Link>
           </div>
-            <div className="flex justify-around gap-3">
-                {/* Desktop Menu */}
-          <div className="hidden md:flex gap-6 items-center">
-            {renderMenuItems(menuItems)}
-          </div>
-
-          {/* Dark Mode Toggle and Mobile Menu Toggle Button */}
-          <div className="flex items-center gap-4">
-          <div> <ThemeToggle></ThemeToggle> </div>
-           {/* Use the ThemeToggle component */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-gray-700 dark:text-gray-300 focus:outline-none md:hidden"
-            >
-              {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </button>
-          </div>
-          
+          <div className="flex justify-around gap-3">
+            {/* Desktop Menu */}
+            <div className="hidden md:flex gap-6 items-center">
+              {renderMenuItems(menuItems)}
             </div>
-          
+
+            {/* Dark Mode Toggle and Mobile Menu Toggle Button */}
+            <div className="flex items-center gap-4">
+              <div>
+                {user ? (
+                  <>
+                  <Link to="/dashboard">Admin</Link>
+                  <button onClick={handleSignOut} className=" bg-pink-600 text-white px-5 py-1 rounded-sm">
+                    Logout
+                  </button>
+
+                  </>
+                ) : (
+                  <Link to="/login">
+                    <button className=" bg-pink-600 text-white px-5 py-1 rounded-sm">
+                      Login
+                    </button>
+                  </Link>
+                )}
+              </div>
+              <div>
+                <ThemeToggle></ThemeToggle>{" "}
+              </div>
+
+              {/* Use the ThemeToggle component */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-700 dark:text-gray-300 focus:outline-none md:hidden"
+              >
+                {isMobileMenuOpen ? (
+                  <FaTimes size={24} />
+                ) : (
+                  <FaBars size={24} />
+                )}
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4">
-            {renderMenuItems(menuItems)}
-          </div>
+          <div className="md:hidden mt-4">{renderMenuItems(menuItems)}</div>
         )}
       </div>
     </header>
