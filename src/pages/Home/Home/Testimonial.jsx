@@ -47,15 +47,20 @@ const Testimonial = () => {
     <section className="bg-white dark:bg-gray-900 py-10">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-          What Our Clients Say
+          What Our <span className="text-pink-600">Clients</span> Say
         </h2>
         <Swiper
-          spaceBetween={30}
-          slidesPerView={3}
-          pagination={{ clickable: true }}
-          modules={[Pagination]}
-          className="w-full"
-        >
+  spaceBetween={30}
+  slidesPerView={3}
+  pagination={{ clickable: true }}
+  modules={[Pagination]}
+  className="w-full"
+  breakpoints={{
+    320: { slidesPerView: 1 }, // For small screens like mobile
+    768: { slidesPerView: 2 }, // For tablets
+    1024: { slidesPerView: 3 }, // For larger screens
+  }}
+>
           {testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
               <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">

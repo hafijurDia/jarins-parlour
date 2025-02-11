@@ -1,3 +1,4 @@
+import ContactSection from "./ContactSection";
 import FeaturedSection from "./FeaturedSection";
 import HeroSection from "./HeroSection";
 import ServicesSection from "./ServicesSection";
@@ -10,6 +11,7 @@ const Home = () => {
         <ServicesSection></ServicesSection>
         <FeaturedSection></FeaturedSection>
         <Testimonial></Testimonial>
+        <ContactSection></ContactSection>
         </>
     );
 };

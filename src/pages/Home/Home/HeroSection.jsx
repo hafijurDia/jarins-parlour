@@ -10,7 +10,7 @@ const HeroSection = () => {
           <p className="text-gray-600 mt-4 w-full md:w-1/2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Purus commodo ipsum duis laoreet maecenas. Feugiat.
           </p>
-          <button className="mt-6 bg-pink-500 text-gray-50 px-6 py-3 rounded-lg shadow-md hover:bg-pink-600 transition">
+          <button className="mt-6 bg-pink-600 text-gray-50 px-6 py-3 rounded-lg shadow-md hover:bg-pink-900 transition">
             Get an Appointment
           </button>
         </div>

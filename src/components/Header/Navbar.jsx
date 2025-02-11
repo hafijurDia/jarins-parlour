@@ -79,7 +79,7 @@ const Navbar = () => {
        
           {item.id == 8 ?<Link
             to={item.url}
-            className="text-white bg-pink-500 py-1 px-4 rounded-sm hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+            className="text-white bg-pink-600 hover:bg-gray-300 py-1 px-4 rounded-sm hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
           >
             {item.title}
           </Link> : <Link
