@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import UseAuth from "../../hooks/UseAuth";
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { signInUser } = UseAuth();
@@ -117,6 +117,12 @@ const Login = () => {
           <div className="flex-1 border-t border-gray-300"></div>
         </div>
         <SocialLogin />
+        <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
+        Dont have an account? 
+        <Link to="/register" className="text-pink-500 hover:underline"> 
+          Create an account
+        </Link>
+      </p>
       </div>
     </div>
   );

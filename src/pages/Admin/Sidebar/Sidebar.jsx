@@ -7,7 +7,8 @@ import { PiSquaresFourThin } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-  const admin = true;
+  //TODO:
+  const isAdmin = true;
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -27,7 +28,7 @@ const Sidebar = () => {
           className="drawer-overlay"
         ></label>
 
-        {admin ? (
+        {isAdmin ? (
           <>
             <div className="min-h-full bg-pink-200 w-80 p-">
               <ul className="menu text-base-content 4">
@@ -45,6 +46,11 @@ const Sidebar = () => {
                 <li>
                   <Link to="/make-admin">
                     <AiOutlineUsergroupAdd /> Make Admin
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/all-users">
+                    <PiSquaresFourThin />All User
                   </Link>
                 </li>
                 <li>

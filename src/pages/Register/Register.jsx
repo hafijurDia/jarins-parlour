@@ -1,14 +1,19 @@
 import { useForm } from "react-hook-form";
-import { FaGoogle, FaFacebook } from "react-icons/fa";
 import logo from "../../assets/logo/logo.png";
 import UseAuth from "../../hooks/UseAuth";
 import SocialLogin from "../Login/SocialLogin";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import UsePublicAxios from "../../hooks/UsePublicAxios";
 
 const Register = () => {
-  const { createUser, loading } = UseAuth();
+  const { createUser, loading, updateUserProfile } = UseAuth();
+  const navigate = useNavigate();
+  const axiosPublic = UsePublicAxios();
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
@@ -17,12 +22,38 @@ const Register = () => {
     console.log("Form Data:", data);
     createUser(data.email, data.password)
       .then((res) => {
-        console.log("User created:", res.user);
+        const loggedUser = res.user;
+        console.log(loggedUser);
+        updateUserProfile(data.firstName, data.lastName).then(() => {
+          //create data entry into database
+          const userInfo = {
+            name: data.firstName + " " + data.lastName,
+            email: data.email,
+          };
+          axiosPublic.post("/users", userInfo)
+          .then((res) => {
+            if (res.data.insertedId) {
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User register successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate("/");
+              console.log("user data updated");
+            }
+          });
+        });
       })
       .catch((error) => {
         console.error("Error creating user:", error.message);
       });
   };
+
+  //google signin
+
 
   if (loading) {
     return <div>Loading...</div>; // Show a loading spinner or message
@@ -125,6 +156,13 @@ const Register = () => {
 
         {/* Social Login */}
         <SocialLogin></SocialLogin>
+        {/* Register Link */}
+        <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
+          You have an account?
+          <Link to="/login" className="text-pink-500 hover:underline">
+            Login here
+          </Link>
+        </p>
       </div>
     </div>
   );
